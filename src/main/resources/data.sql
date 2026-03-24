@@ -1,3 +1,3 @@
-INSERT INTO member (id,name) VALUES (1,  'youngjun')
-INSERT INTO member (id,name) VALUES ( 2,  'youngjun2')
-INSERT INTO member (id,name) VALUES ( 3,  'youngjun3')
+INSERT INTO member (name, email) VALUES ('youngjun', 'a@naver.com');
+INSERT INTO member (name, email) VALUES ('youngjun2', 'b@naver.com');
+INSERT INTO member (name, email) VALUES ('youngjun3', 'c@naver.com');

@@ -18,4 +18,13 @@ public class Member {
     private Long id;
     @Column(name = "name", nullable = false)
     private String name;
+
+    private String email;
+
+    public Member(String name) {
+        this.name = name;
+    }
+
+    public Member(long l, String 홍길동) {
+    }
 }
