@@ -21,6 +21,11 @@ public class Member {
 
     private String email;
 
+
+
+    public void changeName(String name){
+        this.name = name;
+    }
     public Member(String name) {
         this.name = name;
     }
