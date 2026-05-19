@@ -19,6 +19,7 @@ repositories {
 
 dependencies {
     // ====== Spring Boot 기본 스타터 ======
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
