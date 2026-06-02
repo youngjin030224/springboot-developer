@@ -5,6 +5,7 @@ import me.scpark.springdeveloper.service.UserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -55,7 +56,7 @@ public class WebSecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http,
-                                                       BCryptPasswordEncoder bcryptPasswordEncoder,
+                                                       BCryptPasswordEncoder bCryptPasswordEncoder,
                                                        UserDetailsService userDetailsService) throws Exception{
         /*
             1. Spring Security가 사용자 인증을 위해서 사용할 AuthenticationProvider 생성
@@ -63,8 +64,12 @@ public class WebSecurityConfig {
             3. AuthenticationProvider 가 사용자 암호를 암호화하기 위해 사용할 encoder 설정
             4. AuthenticationManager 에게 위에서 생성 및 설정한 AuthenticationProvider 전달
          */
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userService);
+        authProvider.setPasswordEncoder(bCryptPasswordEncoder);
+        return new ProviderManager(authProvider);
     }
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
