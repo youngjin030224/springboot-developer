@@ -4,10 +4,14 @@ import lombok.RequiredArgsConstructor;
 import me.scpark.springdeveloper.service.UserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 
@@ -47,5 +51,22 @@ public class WebSecurityConfig {
                         .invalidateHttpSession(true))
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http,
+                                                       BCryptPasswordEncoder bcryptPasswordEncoder,
+                                                       UserDetailsService userDetailsService) throws Exception{
+        /*
+            1. Spring Security가 사용자 인증을 위해서 사용할 AuthenticationProvider 생성
+            2. AuthenticationProvider 가 DB에서 사용자 정보를 읽어오기 위해 사용할 서비스 설정
+            3. AuthenticationProvider 가 사용자 암호를 암호화하기 위해 사용할 encoder 설정
+            4. AuthenticationManager 에게 위에서 생성 및 설정한 AuthenticationProvider 전달
+         */
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+    }
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 }
