@@ -7,10 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
-
-import java.security.Security;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
@@ -34,7 +33,19 @@ public class WebSecurityConfig {
             3. 로그인 폼 페이지 URL 설정
             4. 로그인 성공 시 어느 페이지로 갈지 URL 설정 ( 목록보기 페이지 URL )
             5. 로그아웃이 성공했을 때 어느 페이지로 갈지 URL 설정 ( 로그인 페이지 폼 페이지)
-            6. 로그아웃 했을 때 세션 정보를 무효화 할지 여부를 설정 (trie)
+            6. 로그아웃 했을 때 세션 정보를 무효화 할지 여부를 설정 (true)
          */
+        return http.authorizeHttpRequests(auth->auth
+                .requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/login"),
+                        PathPatternRequestMatcher.withDefaults().matcher("/signup"),
+                        PathPatternRequestMatcher.withDefaults().matcher("/user")).permitAll()
+                .anyRequest().authenticated())
+                .formLogin(formLogin->formLogin.loginPage("/login")
+                        .defaultSuccessUrl("/articles")
+                )
+                .logout(logout->logout.logoutSuccessUrl("/login")
+                        .invalidateHttpSession(true))
+                .csrf(AbstractHttpConfigurer::disable)
+                .build();
     }
 }
