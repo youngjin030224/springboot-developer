@@ -1,13 +1,12 @@
 package me.scpark.springdeveloper.repository;
 
 import me.scpark.springdeveloper.dao.User;
-import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+
     Optional<User> findByEmail(String email);
 
-    Example<? extends User> email(String email);
 }
