@@ -11,10 +11,14 @@
 <body>
 <div class="p-4 text-center bg-light">
     <h1 class="mb-2">My Blog</h1>
-    <h5>블로그에 오신 것을 환영합니다.</h5>
+    <h5>블로그에 당신의 생각을 환영합니다</h5>
 </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4">
+    <span class="navbar-text font-weight-bold" th:if="${nickname != null}" th:text="|반갑습니다, ${nickname}님|"></span>
+    <button type="button" class="btn btn-secondary btn-sm ml-auto" onclick="location.href='/logout'">로그아웃</button>
+</nav>
 <div class="container mt-4">
-    <button type = "button" class = "btn btn-secondary btn-sm mb-3" onclick="location.href='/new-article'" id="create-btn">글 등록</button>
+    <button type="button" class="btn btn-secondary btn-sm mb-3" onclick="location.href='/new-article'" id="create-btn">글 등록</button>
     <div th:each="item : ${articles}" class="mb-3">
         <div class="card">
             <div class="card-header" th:text="${item.id}"></div>
@@ -25,7 +29,6 @@
             </div>
         </div>
     </div>
-    <button type="button" class="btn btn-secondary" onclick="location.href='/logout'">로그아웃</button>
 </div>
 </body>
 </html>

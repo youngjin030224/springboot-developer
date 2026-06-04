@@ -29,20 +29,24 @@ public class User implements UserDetails {
     @Column(name="password")
     private String password;
 
+    @Column(name="nickname", nullable = false)
+    private String nickname;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("user"));
     }
 
     @Builder
-    public User(String email,String password){
+    public User(String email,String password, String nickname){
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return email;
     }
 
     @Override
