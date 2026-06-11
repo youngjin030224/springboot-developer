@@ -17,6 +17,6 @@ spring:
 
     #테이블 생성 후에 data.sql 실행
     defer-datasource-initialization: true
-  jwt:
-    issuer: sune0410@g.yju.ac.kr
-    secret_kye: study-springboot
+jwt:
+  issuer: sune0410@g.yju.ac.kr
+  secret_kye: study-springboot
